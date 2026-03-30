@@ -1,0 +1,7 @@
+Django>=5.0
+djangorestframework
+django-cors-headers
+python-dotenv
+Pillow
+djangorestframework-simplejwt
+django-filter
