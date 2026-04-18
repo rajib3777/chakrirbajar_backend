@@ -1,0 +1,4 @@
+This is a mock resume for testing purposes.
+Candidate Name: Mock Candidate
+Skills: React, Django, Python
+Experience: 3 Years

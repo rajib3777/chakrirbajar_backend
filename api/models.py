@@ -7,7 +7,7 @@ class User(AbstractUser):
         ('JobSeeker', 'JobSeeker'),
     )
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='JobSeeker')
-    mobile = models.CharField(max_length=15, blank=True, null=True)
+    mobile = models.CharField(max_length=15, unique=True, null=True, blank=True)
 
 class CompanyProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='company_profile')
@@ -27,6 +27,8 @@ class JobSeekerProfile(models.Model):
     education = models.JSONField(default=list) # List of dicts
     experience = models.JSONField(default=list) # List of dicts
     resume = models.FileField(upload_to='resumes/', blank=True, null=True)
+    nid_card = models.ImageField(upload_to='nid_cards/', blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -53,6 +55,10 @@ class Application(models.Model):
     answers = models.JSONField(default=dict) # Answers to custom demands
     status = models.CharField(max_length=50, choices=[('Pending', 'Pending'), ('Reviewed', 'Reviewed'), ('Shortlisted', 'Shortlisted'), ('Rejected', 'Rejected')], default='Pending')
     applied_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('job', 'seeker')
+        ordering = ['-applied_at']
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')

@@ -6,6 +6,8 @@ router = DefaultRouter()
 router.register(r'jobs', views.JobViewSet, basename='job')
 router.register(r'applications', views.ApplicationViewSet, basename='application')
 router.register(r'notifications', views.NotificationViewSet, basename='notification')
+router.register(r'employer-profile', views.CompanyProfileViewSet, basename='employer-profile')
+router.register(r'candidate-profile', views.JobSeekerProfileViewSet, basename='candidate-profile')
 
 urlpatterns = [
     path('', include(router.urls)),
